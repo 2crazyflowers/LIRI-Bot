@@ -5,12 +5,20 @@ require("dotenv").config();
 var keys = require("./keys.js");
 
 var Twitter = require('twitter');
+var request = require('request');
 var client = new Twitter(keys.twitter);
 //need to require keys.js
 var input = process.argv;
 var command = input[2];
 console.log(input[2]);
+var name = "";
 
+for (i = 3; i < input.length; i++) {
+	name = name + " " + input[i];
+
+}
+name = name.trim().replace(" ", "+");
+console.log(name);
 //console.log(nodeArgs.length);
 if (command === "my-tweets") {
 	    		
@@ -25,30 +33,43 @@ if (command === "my-tweets") {
 	    		"Tweet Number: " + (tweets.length-i) + "\r\n" +
 	    		"Posted on: " + tweets[i].created_at + "\r\n" +
 	    		"Tweet Posted: " + tweets[i].text + "\r\n" + "\r\n" + "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-
 	    	console.log(myTweets);
 			} 
 		}
 	})
 }
 
-else {
-	console.log("error, try again");
+
+// else if (command === "spotify-this-song") {
+
+// }
+
+else if (command === "movie-this") {
+
+
+// Then run a request to the OMDB API with the movie specified
+	var queryUrl = "http://www.omdbapi.com/?t=" + name + "&y=&plot=short&apikey=trilogy";
+
+	// This line is just to help us debug against the actual URL.
+	console.log(queryUrl);
+
+	request.get(queryUrl, function(error, response, body) {
+
+	  	if (!error && response.statusCode === 200) {
+	  		console.log(response, null, 2);
+	    	console.log("Release Year: " + JSON.parse(body).Year);
+  		}
+	});
+
 }
-
-// if (command === "spotify-this-song") {
-
-// }
-
-// if (command === "movie-this") {
-
-
-// }
 
 // if (command === "do-what-it-says") {
 
 // }
 
+else {
+	console.log("error, try again");
+}
 
 //Once I add more than just twitter feed this will help to pull command
 //and the name of whatever is being searched for
@@ -61,39 +82,7 @@ else {
 
 // Loop through all the words in the node argument
 // And do a little for-loop magic to handle the inclusion of "+"s
-// for (var i = 2; i < nodeArgs.length; i++) {
-
-//   if (i > 2 && i < nodeArgs.length) {
-
-// 	command = nodeArgs[2];
-
-//     movieName = movieName + "+" + nodeArgs[i];
-
-//   }
-
-//   else {
-
-//     movieName += nodeArgs[i];
-
-//   }
-// }
-
-// // Then run a request to the OMDB API with the movie specified
-// var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-
-// // This line is just to help us debug against the actual URL.
-// console.log(queryUrl);
-
-// request(queryUrl, function(error, response, body) {
-
-//   // If the request is successful
-//   if (!error && response.statusCode === 200) {
-
-//     // Parse the body of the site and recover just the imdbRating
-//     // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-//     console.log("Release Year: " + JSON.parse(body).Year);
-//   }
-// });
+// 
 
 // Make it so liri.js can take in one of the following commands:
 // * `my-tweets`

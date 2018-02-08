@@ -72,45 +72,16 @@ else if (command === "spotify-this-song") {
   	}
   	console.log(JSON.stringify(data, null, 2));
   	// console.log(data);
-  	// console.log(JSON.data.tracks.items[5].artists[0].name);
-  	// console.log(JSON.parse(data).tracks);
   	var track = data.tracks.items[0];
        console.log(track.artists[0]);
        console.log(track.artists[0].name);
-
-  // 	var defaultSong = 
-		// //Output the artist
-		// "Artist: " + data.tracks.items[5].artists[0].name + "\r\n" + 
-		// //Output the song's name.
-		// "Song title: " + data.tracks.items[5].name + "\r\n" +
-		// //Output a preview link of the song from Spotify.
-		// "Preview song: " + data.tracks.items[5].preview_url + "\r\n" +
-		// //Output the album that the song is from.
-		// "Album: " + data.tracks.items[5].album.name + "\r\n" 
-
-		// //Output default song info to terminal
-		// console.log (defaultSong);
-		// //Output default song info to log.txt file.
-		// // logData(defaultSong);
-		// // logData("==========================================================================");
+       console.log(track.name);
+       console.log(track.album.name);
+       //console.log(track.artists[0].external_urls.spotify);
+       console.log(track.preview_url);
 	
 	})
 
-	//search: function({ type: 'artist OR album OR track', query: 'My search query', limit: 20 }, callback);
-	 //  spotify.request('https://api.spotify.com/v1/tracks/7yCPwWs66K8Ba5lFuU2bcx')
-  // .then(function(data) {
-  //   console.log(data); 
-  // })
-  // .catch(function(err) {
-  //   console.error('Error occurred: ' + err); 
-  // });
-  // spotify.search({ type: 'track', query: 'All the Small Things' })
-  // .then(function(response) {
-  //   console.log(response);
-  // })
-  // .catch(function(err) {
-  //   console.log(err);
-  // });
 }
 
 else if (command === "movie-this") {

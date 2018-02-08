@@ -1,19 +1,37 @@
+// Make it so liri.js can take in one of the following commands:
+// * `my-tweets`
+// * `spotify-this-song`
+// * `movie-this`
+// * `do-what-it-says`
 
 //not ready for this yet
 require("dotenv").config();
-//need to require keys.js
+
+//movie specific variables
 var tomatoesRating;
 var internetRating;
 
+//npm require
 var keys = require("./keys.js");
-
 var Twitter = require('twitter');
 var request = require('request');
+var Spotify = require('node-spotify-api');
+
+//twitter npm specific call to get keys to twitter account
 var client = new Twitter(keys.twitter);
-//need to require keys.js
+
+//spotify npm specific call to get keys to spotify account
+var spotify = new Spotify(keys.spotify);
+// var spotify = new Spotify({
+
+//grabbing user input variables
 var input = process.argv;
+
+//grabs user command for tweets, movies, spotify or random
 var command = input[2];
 console.log(input[2]);
+
+//grabs movie or song names to put into request
 var name = "";
 for (i = 3; i < input.length; i++) {
 	name = name + " " + input[i];
@@ -42,9 +60,58 @@ if (command === "my-tweets") {
 }
 
 
-// else if (command === "spotify-this-song") {
+else if (command === "spotify-this-song") {
+// Artist(s)
+// The song's name
+// A preview link of the song from Spotify
+// The album that the song is from
+// If no song is provided then your program will default to "The Sign" by Ace of Base.
+	spotify.search({ type: 'track', query: 'The Sign', limit: 1 }, function(err, data) {
+ 	if (err) {
+    	return console.log('Error occurred: ' + err);
+  	}
+  	console.log(JSON.stringify(data, null, 2));
+  	// console.log(data);
+  	// console.log(JSON.data.tracks.items[5].artists[0].name);
+  	// console.log(JSON.parse(data).tracks);
+  	var track = data.tracks.items[0];
+       console.log(track.artists[0]);
+       console.log(track.artists[0].name);
 
-// }
+  // 	var defaultSong = 
+		// //Output the artist
+		// "Artist: " + data.tracks.items[5].artists[0].name + "\r\n" + 
+		// //Output the song's name.
+		// "Song title: " + data.tracks.items[5].name + "\r\n" +
+		// //Output a preview link of the song from Spotify.
+		// "Preview song: " + data.tracks.items[5].preview_url + "\r\n" +
+		// //Output the album that the song is from.
+		// "Album: " + data.tracks.items[5].album.name + "\r\n" 
+
+		// //Output default song info to terminal
+		// console.log (defaultSong);
+		// //Output default song info to log.txt file.
+		// // logData(defaultSong);
+		// // logData("==========================================================================");
+	
+	})
+
+	//search: function({ type: 'artist OR album OR track', query: 'My search query', limit: 20 }, callback);
+	 //  spotify.request('https://api.spotify.com/v1/tracks/7yCPwWs66K8Ba5lFuU2bcx')
+  // .then(function(data) {
+  //   console.log(data); 
+  // })
+  // .catch(function(err) {
+  //   console.error('Error occurred: ' + err); 
+  // });
+  // spotify.search({ type: 'track', query: 'All the Small Things' })
+  // .then(function(response) {
+  //   console.log(response);
+  // })
+  // .catch(function(err) {
+  //   console.log(err);
+  // });
+}
 
 else if (command === "movie-this") {
  	if (name === "") {
@@ -101,31 +168,21 @@ else if (command === "movie-this") {
 }
 
 // if (command === "do-what-it-says") {
-
+	// Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+	// It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
+	// Feel free to change the text in that document to test out the feature for other commands.
 // }
 
 else {
 	console.log("error, try again");
 }
 
-//Once I add more than just twitter feed this will help to pull command
-//and the name of whatever is being searched for
-// Grab the movieName which will always be the third node argument.
+// BONUS
 
-// Store all of the arguments in an array if multiple names
 
-// // Create an empty variable for holding the movie name
-// var movieName = "";
-
-// Loop through all the words in the node argument
-// And do a little for-loop magic to handle the inclusion of "+"s
-// 
-
-// Make it so liri.js can take in one of the following commands:
-// * `my-tweets`
-// * `spotify-this-song`
-// * `movie-this`
-// * `do-what-it-says`
+// In addition to logging the data to your terminal/bash window, output the data to a .txt file called log.txt.
+// Make sure you append each command you run to the log.txt file. 
+// Do not overwrite your file each time you run a command.
 
 
 

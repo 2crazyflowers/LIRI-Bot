@@ -61,25 +61,30 @@ if (command === "my-tweets") {
 
 
 else if (command === "spotify-this-song") {
-// Artist(s)
-// The song's name
-// A preview link of the song from Spotify
-// The album that the song is from
-// If no song is provided then your program will default to "The Sign" by Ace of Base.
-	spotify.search({ type: 'track', query: 'The Sign', limit: 1 }, function(err, data) {
+	if (name === "") {
+  		name = "The Sign"
+  	}
+	// Artist(s)
+	// The song's name
+	// A preview link of the song from Spotify
+	// The album that the song is from
+	// If no song is provided then your program will default to "The Sign" by Ace of Base.
+	spotify.search({ type: 'track', query: name, limit: 1 }, function(err, data) {
  	if (err) {
     	return console.log('Error occurred: ' + err);
   	}
-  	console.log(JSON.stringify(data, null, 2));
+  	
+  	// console.log(JSON.stringify(data, null, 2));
   	// console.log(data);
   	var track = data.tracks.items[0];
-       console.log(track.artists[0]);
-       console.log(track.artists[0].name);
-       console.log(track.name);
-       console.log(track.album.name);
-       //console.log(track.artists[0].external_urls.spotify);
-       console.log(track.preview_url);
-	
+    var mySong =
+		"-----------------------------------------------------------------------" + "\r\n" +
+		"Song Title: " + name + "\r\n" +
+		"Artist: " + track.artists[0].name + "\r\n" +
+		"Album: " + track.album.name + "\r\n" + 
+		"Preview Link: " + track.preview_url + "\r\n" +
+		"-----------------------------------------------------------------------" + "\r\n"
+		console.log(mySong);
 	})
 
 }
@@ -98,7 +103,6 @@ else if (command === "movie-this") {
 	request.get(queryUrl, function(error, response, body) {
 		
     	// console.log(response);
-
 	  	if (!error && response.statusCode === 200) {
 	  		//var body = JSON.parse(body);
 	  		for (i = 0; i < JSON.parse(body).Ratings.length; i++) {
@@ -122,7 +126,7 @@ else if (command === "movie-this") {
 			//If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 	  		var myMovie =
   			"-----------------------------------------------------------------------" + "\r\n" +
-    		"Moive Title: " + JSON.parse(body).Title + "\r\n" +
+    		"Movie Title: " + JSON.parse(body).Title + "\r\n" +
     		"Year movie released: " + JSON.parse(body).Year + "\r\n" +
     		"Movie rating: " + JSON.parse(body).Rated + "\r\n" + 
     		"Rotten Tomatoes Rating: " + tomatoesRating + "\r\n" +

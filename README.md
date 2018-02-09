@@ -1,40 +1,69 @@
 # LIRI-Bot
 
-###Project Overview
-This project was an assignment in the U of M FullStack Coding Program.
+### Project Overview
+This project was an assignment in the U of M FullStack Coding Program. Using the command line and Node.js you can use this to console out either 20 tweets or information about either a song or a movie. 
 
-##Why the project is useful
+### Issues or other things to add
+The next item I would add is a help function to print to console how to use the application.
 
-###Issues
+## Getting Started
+You can fork this repository then download it into your computer. Once that is done you will need to create a .env file which contains the following information with your twitter and spotify api credentials: 
+```
+# Spotify API keys
 
-##How users can get started with the project
+SPOTIFY_ID=your-spotify-id
+SPOTIFY_SECRET=your-spotify-secret
 
-###Getting Started
+# Twitter API keys
 
-###Prerequisites
-There are no prerequisite softwares that you need to install to run this application. This application is deployed in GitHub.
+TWITTER_CONSUMER_KEY=your-twitter-consumer-key
+TWITTER_CONSUMER_SECRET=your-twitter-consumer-secret
+TWITTER_ACCESS_TOKEN_KEY=your-access-token-key
+TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
+```
 
-Built With
+Once that file is created and your developer login keys entered (without quotation marks). Then open your command window and go into the folder. Then on the command line enter: npm install
+This will install the npm packages required to run this application. Once those packages are added, it may take some time, then you can use the application.
+
+On the command line type node liri.js then any of the following commands:
+```
+* spotify-this-song
+* movie-this
+* do-what-it-says
+* my-tweets
+```
+
+After the movie or the song commands you can type the name of the movie or song (you do not need to capitalize the words or do anything special if there multiple words in your name). Your command line could look like this for example:
+```
+node liri.js spotify-this-song fight song
+node liri.js my-tweets
+node liri.js movie-this aliens
+```
+
+### Prerequisites
+You will need to fork this repository and pull it to your local drive. Once this is done you will need to create a .env file with your twitter api keys and spotify keys. You will also need to install the npm packages stated in the package.json file.
+
+### Built With
 * Javascript
-* Nodejs
+* Node.js
 * NPMs 
     1. Twitter https://www.npmjs.com/package/twitter
-    2. Spotify https://www.npmjs.com/package/node-spotify-api
-    3. Request https://www.npmjs.com/package/request
+    1. Spotify https://www.npmjs.com/package/node-spotify-api
+    1. Request https://www.npmjs.com/package/request
 
-###Author
+### Author
 Sara Bracewell - 2crazyflowers/github. email: bracewell.sara@gmail.com
 
-##Homework Instructions
+
+## Homework Instructions
 LIRI Bot
 
-####Overview
+#### Overview
 
 In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
 
 
-####Before You Begin
-
+#### Before You Begin
 
 1. LIRI will display your latest tweets. As we do not want to display your personal account, or its keys, please make an alias account and add a few tweets to it!
 2. Make a new GitHub repository called liri-node-app and clone it to your computer.
@@ -49,16 +78,16 @@ In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, whi
 Instructions
 
 1. Navigate to the root of your project and run npm init -y — this will initialize a package.json file for your project. The package.json file is required for installing third party npm packages and saving their version numbers. If you fail to initialize a package.json file, it will be troublesome, and at times almost impossible for anyone else to run your code after cloning your project.
-2. Make a .gitignore file and add the following lines to it. This will tell git not to track these files, and thus they won't be committed to Github.
-
+1. Make a .gitignore file and add the following lines to it. This will tell git not to track these files, and thus they won't be committed to Github.
+```
 node_modules
 .DS_Store
 .env
-
+```
 1. Make a JavaScript file named keys.js.
 
 Inside keys.js your file will look like this:
-
+```
 console.log('this is loaded');
 
 exports.twitter = {
@@ -72,10 +101,10 @@ exports.spotify = {
   id: process.env.SPOTIFY_ID,
   secret: process.env.SPOTIFY_SECRET
 };
+```
 
 Next, create a file named .env, add the following to it, replacing the values with your API keys (no quotes) once you have them:
-
-
+```
 # Spotify API keys
 
 SPOTIFY_ID=your-spotify-id
@@ -87,21 +116,20 @@ TWITTER_CONSUMER_KEY=your-twitter-consumer-key
 TWITTER_CONSUMER_SECRET=your-twitter-consumer-secret
 TWITTER_ACCESS_TOKEN_KEY=your-access-token-key
 TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
-
+```
 
 This file will be used by the dotenv package to set what are known as environment variables to the global process.env object in node. These are values that are meant to be specific to the computer that node is running on, and since we are gitignoring this file, they won't be pushed to github — keeping our API key information private.
+
 If someone wanted to clone your app from github and run it themselves, they would need to supply their own .env file for it to work.
 
-
 Get your Twitter API keys by following these steps:
-
-
+```
 Step One: Visit https://apps.twitter.com/app/new
 Step Two: Fill out the form with dummy data. Type http://google.com in the Website input. Don't fill out the Callback URL input. Then submit the form.
 Step Three: On the next screen, click the Keys and Access Tokens tab to get your consume key and secret. 
 Copy and paste them into your .env file, replacing the your-twitter-consumer-key and your-twitter-consumer-secret placeholders.
 Step Four: At the bottom of the page, click the Create my access token button to get your access token key and secret. 
-
+```
 
 Copy the access token key and secret displayed at the bottom of the next screen. Paste them into your .env file, replacing the placeholders for your-twitter-access-token-key and your-twitter-access-token-secret.
 
@@ -124,27 +152,22 @@ You should then be able to access your keys information like so
   var client = new Twitter(keys.twitter);
 
 Make it so liri.js can take in one of the following commands:
-
-
 * `my-tweets`
-
 * `spotify-this-song`
-
 * `movie-this`
-
 * `do-what-it-says`
 
-###What Each Command Should Do
+### What Each Command Should Do
 
-####node liri.js my-tweets
+#### node liri.js my-tweets
 * This will show your last 20 tweets and when they were created at in your terminal/bash window.
 
-####node liri.js spotify-this-song '<song name here>'
+#### node liri.js spotify-this-song '<song name here>'
 * This will show the following information about the song in your terminal/bash window:
   1. Artist(s)
-  2. The song's name
-  3. A preview link of the song from Spotify
-  4. The album that the song is from
+  1. The song's name
+  1. A preview link of the song from Spotify
+  1. The album that the song is from
 * If no song is provided then your program will default to "The Sign" by Ace of Base.
 You will utilize the node-spotify-api package in order to retrieve song information from the Spotify API.
 
@@ -158,49 +181,39 @@ Step Three: Once logged in, navigate to https://developer.spotify.com/my-applica
 
 Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the node-spotify-api package.
 
-
-
-####node liri.js movie-this '<movie name here>'
+#### node liri.js movie-this '<movie name here>'
 * This will output the following information to your terminal/bash window:
 
    1. Title of the movie.
-   2. Year the movie came out.
-   3. IMDB Rating of the movie.
-   4. Rotten Tomatoes Rating of the movie.
-   5.  Country where the movie was produced.
-   6. Language of the movie.
-   7. Plot of the movie.
-   8. Actors in the movie.
+   1. Year the movie came out.
+   1. IMDB Rating of the movie.
+   1. Rotten Tomatoes Rating of the movie.
+   1.  Country where the movie was produced.
+   1. Language of the movie.
+   1. Plot of the movie.
+   1. Actors in the movie.
 * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 
 
 You'll use the request package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use trilogy.
 
-
-####node liri.js do-what-it-says
+#### node liri.js do-what-it-says
 * Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 * It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
 Feel free to change the text in that document to test out the feature for other commands.
-
 
 BONUS
 In addition to logging the data to your terminal/bash window, output the data to a .txt file called log.txt.
 Make sure you append each command you run to the log.txt file. 
 Do not overwrite your file each time you run a command.
 
-
 Minimum Requirements
 
 Attempt to complete homework assignment as described in instructions. If unable to complete certain portions, please pseudocode these portions to describe what remains to be completed.
 
-
-
-
 Create a README.md
 
 Add a README.md to your repository describing the project. Here are some resources for creating your README.md. Here are some resources to help you along the way:
-
-
 About READMEs
 Mastering Markdown
 
